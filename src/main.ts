@@ -1,5 +1,19 @@
 import "./style.css";
 
+const helpDialog = document.querySelector("dialog") as HTMLDialogElement;
+const showButton = document.querySelector("#help") as HTMLButtonElement;
+const closeButton = document.querySelector(
+  "dialog button"
+) as HTMLButtonElement;
+
+showButton.addEventListener("click", () => {
+  helpDialog.showModal();
+});
+
+closeButton.addEventListener("click", () => {
+  helpDialog.close();
+});
+
 const colors = {
   black: "#000000",
   blue: "#40ccd0",
@@ -20,6 +34,8 @@ let stroke = "black";
 // Needed because we're in a requestAnimationFrame loop and thus it would trigger for every frame
 let hasDownloadTimeout = false;
 window.addEventListener("gamepadconnected", () => {
+  document.querySelector("#no-gamepad")?.remove();
+
   const update = () => {
     let newX = x;
     let newY = y;
@@ -56,10 +72,6 @@ window.addEventListener("gamepadconnected", () => {
             break;
           // Select
           case 8:
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            break;
-          // Start
-          case 9:
             if (hasDownloadTimeout) return;
             hasDownloadTimeout = true;
             setTimeout(() => {
@@ -70,6 +82,12 @@ window.addEventListener("gamepadconnected", () => {
             a.download = `canvas-${new Date().toISOString()}.png`;
             document.body.appendChild(a);
             a.click();
+            break;
+          // Start
+          case 9:
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            break;
         }
       });
 
