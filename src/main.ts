@@ -93,8 +93,8 @@ window.addEventListener("gamepadconnected", () => {
 
       gamepad.axes.forEach((axis, i) => {
         if (
-          // Axis didn't move
-          axis === 0 ||
+          // Axis didn't move (with deadzone)
+          Math.abs(axis) < 0.1 ||
           // Axis is left stick
           i < 2
         ) {
