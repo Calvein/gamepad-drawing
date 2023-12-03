@@ -92,21 +92,15 @@ window.addEventListener("gamepadconnected", () => {
       });
 
       gamepad.axes.forEach((axis, i) => {
-        if (
-          // Axis didn't move (with deadzone)
-          Math.abs(axis) < 0.1 ||
-          // Axis is left stick
-          i < 2
-        ) {
+        // Axis didn't move (with deadzone)
+        if (Math.abs(axis) < 0.1) {
           return;
         }
 
-        if (i === 2) {
-          // Right stick X
+        if (i === 0 || i === 2) {
           newX += Math.min(10, Math.max(-10, axis * 10));
         }
-        if (i === 3) {
-          // Right stick Y
+        if (i === 1 || i === 3) {
           newY += Math.min(10, Math.max(-10, axis * 10));
         }
       });
