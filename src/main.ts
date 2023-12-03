@@ -112,6 +112,10 @@ window.addEventListener("gamepadconnected", () => {
       });
     });
 
+    // Clamp to canvas
+    newX = Math.min(canvas.width, Math.max(0, newX));
+    newY = Math.min(canvas.height, Math.max(0, newY));
+
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(newX, newY);
